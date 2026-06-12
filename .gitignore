@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+test_*.mp4
+frame_check.jpg
+reel.mp4
+.chrometmp/
