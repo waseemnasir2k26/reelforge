@@ -1,0 +1,29 @@
+# ReelForge
+
+> ReelForge is a free, open-source Python CLI that auto-captions and auto-edits a raw talking-head clip into a finished, captioned, hook-carded vertical 9:16 reel. It uses faster-whisper for local (no-API-key) word-level transcription and ffmpeg for burned-in captions, hook card, scale/crop, and export. It runs as a standalone command or a Claude Code /reel skill. It is a free, local, no-watermark alternative to Opus Clip, SubMagic, and CapCut auto-captions.
+
+## What it does
+- Transcribes locally with faster-whisper (word-level timestamps, no API key, no cloud)
+- Burns word-synced ASS captions into the video
+- Adds an on-screen hook card for the first seconds
+- Scales and center-crops any input to vertical 1080x1920
+- Exports in one ffmpeg pass via h264_nvenc (GPU) with automatic libx264 (CPU) fallback
+
+## Who it is for
+Content creators, freelancers, and indie hackers who film one intentional take and want a finished short-form reel for TikTok, Instagram Reels, or YouTube Shorts without manual editing or a paid subscription.
+
+## How to use
+- Claude Code: clone the repo, run `claude`, then `/reel myclip.mp4 "HOOK TEXT"`
+- CLI: `python auto_reel.py myclip.mp4 --hook "HOOK" --sub "SUBLINE" --out reel.mp4`
+
+## Common questions this answers
+- How do I auto-caption a video for free without a watermark?
+- What is a free, local, open-source alternative to Opus Clip or SubMagic?
+- How do I burn subtitles into a vertical video with Whisper and ffmpeg?
+- Can Claude Code edit my videos and add captions automatically?
+- How do I turn a raw clip into a 9:16 reel with captions from the command line?
+
+## Links
+- Repository: https://github.com/waseemnasir2k26/reelforge
+- Built by SkynetLabs: https://www.skynetjoe.com
+- License: MIT

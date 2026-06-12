@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+      }
+      :root {
+        --gold: #e8b84b;
+        --gold2: #f6d27a;
+        --ink: #0a0d12;
+        --card: #141923;
+        --mut: #9aa6b2;
+      }
+      body {
+        width: 1280px;
+        height: 640px;
+        background: radial-gradient(
+          120% 120% at 80% 0%,
+          #16202e 0%,
+          var(--ink) 55%
+        );
+        color: #eef2f6;
+        overflow: hidden;
+        position: relative;
+      }
+      .wrap {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        padding: 0 64px;
+        gap: 48px;
+      }
+      .left {
+        flex: 1.15;
+      }
+      .badge {
+        display: inline-block;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        border-radius: 30px;
+        padding: 5px 16px;
+        font-size: 14px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 22px;
+      }
+      h1 {
+        font-size: 78px;
+        line-height: 0.98;
+        letter-spacing: -2px;
+        margin-bottom: 18px;
+      }
+      h1 b {
+        color: var(--gold);
+      }
+      .tag {
+        font-size: 23px;
+        color: #d7dee6;
+        line-height: 1.35;
+        max-width: 560px;
+        margin-bottom: 24px;
+      }
+      .tag b {
+        color: var(--gold2);
+      }
+      .cmd {
+        background: #0c1118;
+        border: 1px solid rgba(232, 184, 75, 0.3);
+        border-radius: 12px;
+        padding: 14px 18px;
+        font-family: Consolas, Monaco, monospace;
+        font-size: 18px;
+        color: #cfe3ff;
+        max-width: 560px;
+      }
+      .cmd .p {
+        color: var(--gold);
+      }
+      .pills {
+        margin-top: 22px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        background: var(--card);
+        border: 1px solid rgba(232, 184, 75, 0.22);
+        border-radius: 8px;
+        padding: 7px 13px;
+        font-size: 14px;
+        color: var(--mut);
+      }
+      .pill b {
+        color: var(--gold2);
+      }
+      /* phone */
+      .right {
+        flex: 0.85;
+        display: flex;
+        justify-content: center;
+      }
+      .phone {
+        width: 300px;
+        height: 533px;
+        border-radius: 34px;
+        border: 8px solid #232a36;
+        background: #000;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(160deg, #3a5a78, #1d2b3a 60%, #10171f);
+      }
+      .scene:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          60% 40% at 50% 28%,
+          rgba(255, 210, 140, 0.25),
+          transparent 70%
+        );
+      }
+      .silhouette {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 200px;
+        background: linear-gradient(180deg, #26323f, #161d26);
+        border-radius: 75px 75px 0 0;
+      }
+      .hook {
+        position: absolute;
+        top: 38%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: 88%;
+      }
+      .hook .h {
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        font-weight: 800;
+        font-size: 25px;
+        padding: 6px 8px;
+        border-radius: 6px;
+        letter-spacing: 0.5px;
+      }
+      .hook .s {
+        color: var(--gold);
+        font-size: 13px;
+        font-weight: 700;
+        margin-top: 7px;
+        letter-spacing: 1px;
+      }
+      .cap {
+        position: absolute;
+        bottom: 64px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-weight: 800;
+        font-size: 22px;
+        padding: 5px 12px;
+        border-radius: 7px;
+        border: 2px solid var(--gold);
+        white-space: nowrap;
+      }
+      .brand {
+        position: absolute;
+        top: 16px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-weight: 800;
+        font-size: 13px;
+        letter-spacing: 3px;
+        opacity: 0.85;
+      }
+      .glow {
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(232, 184, 75, 0.16),
+          transparent 65%
+        );
+        right: -120px;
+        top: -120px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow"></div>
+    <div class="wrap">
+      <div class="left">
+        <div class="badge">Free · Local · No Watermark</div>
+        <h1>Reel<b>Forge</b></h1>
+        <div class="tag">
+          Turn <b>one raw take</b> into a captioned, hook-carded
+          <b>9:16 reel</b> — <code>faster-whisper</code> + <code>ffmpeg</code>,
+          zero human editor.
+        </div>
+        <div class="cmd">
+          <span class="p">/reel</span> myclip.mp4
+          <span style="color: #f6d27a">"THIS REEL EDITED ITSELF"</span>
+        </div>
+        <div class="pills">
+          <div class="pill"><b>faster-whisper</b> · local, $0</div>
+          <div class="pill"><b>ffmpeg</b> · NVENC→x264</div>
+          <div class="pill"><b>Claude Code</b> native</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="phone">
+          <div class="scene"><div class="silhouette"></div></div>
+          <div class="brand">SKYNETLABS</div>
+          <div class="hook">
+            <div class="h">THIS REEL EDITED ITSELF</div>
+            <div class="s">FULLY AI / ZERO HUMAN EDITOR</div>
+          </div>
+          <div class="cap">AUTO-CAPTIONED</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

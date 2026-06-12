@@ -1,66 +1,55 @@
 <div align="center">
 
-# 🤖 AI Auto-Edit Reel Pipeline
+<img src="assets/hero.png" alt="ReelForge — auto-generated word-by-word captions on a vertical 9:16 reel from one raw take" width="100%">
 
-**The reel that edited itself.** Record one take → captioned, hook-carded, vertical reel.
-Zero human editor.
+# ReelForge
 
-Built by **[SkynetLabs](https://www.skynetjoe.com)** · `www.skynetjoe.com`
+### Auto-caption & auto-edit raw clips into vertical 9:16 reels — `faster-whisper` + `ffmpeg`, driven by one Claude Code command.
+
+**Free, local, no watermark, no subscription, no per-clip credits.** A self-hostable, open-source alternative to Opus Clip / SubMagic / CapCut auto-captions — for content creators, freelancers, and indie hackers.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-e8b84b.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Built by SkynetLabs](https://img.shields.io/badge/built%20by-SkynetLabs-0c0f14.svg)](https://www.skynetjoe.com)
 
 </div>
 
 ---
 
-## What this does
+## What is ReelForge?
 
-You hit record. A script does the rest:
+**ReelForge is a free, open-source CLI that turns one raw talking-head take into a finished, captioned, hook-carded vertical reel — with no manual editing.** It transcribes locally with `faster-whisper` (no API key, no cloud), burns word-synced captions, drops an on-screen hook card, crops to `1080×1920`, and exports — all from a single command or a Claude Code `/reel` skill.
 
-- 🎙️ **Transcribes** locally with `faster-whisper` (word-level, free, no API key)
-- ✂️ **Burns captions** synced to the exact word
-- 🪧 **Drops a hook card** (`THIS REEL EDITED ITSELF`) on the first 2.5s
-- 📐 **Scales + crops** to vertical `1080×1920`
-- ⚡ **Exports** via NVENC GPU (auto-falls back to CPU `libx264`)
+Unlike "viral clip" tools that need a long podcast and try to _guess_ the good moments, ReelForge assumes you filmed **one intentional take** and just want it shipped. Record → run → publish.
 
-One command. No timeline. No 3am editing.
+> **The differentiator:** single-take input, a real hook card, baked-in branding, zero config, and Claude Code native. Most open-source tools do none of these.
 
 ---
 
-## Quickstart (with Claude Code)
+## How do I auto-caption a video? (Quickstart)
 
-**1. Install Claude Code** (if you don't have it):
-
-```bash
-npm install -g @anthropic-ai/claude-code
-```
-
-**2. Clone this repo:**
+### With Claude Code — one command
 
 ```bash
-git clone https://github.com/waseemnasir2k26/skynet-reel-autoedit.git
-cd skynet-reel-autoedit
+npm install -g @anthropic-ai/claude-code        # 1. install Claude Code
+git clone https://github.com/waseemnasir2k26/reelforge.git && cd reelforge   # 2. clone
+claude                                           # 3. open Claude Code here
 ```
 
-**3. Open Claude Code in the folder:**
-
-```bash
-claude
-```
-
-**4. Run the command** (Claude installs deps + drives the pipeline for you):
+Then, inside Claude Code:
 
 ```
 /reel myclip.mp4 "THIS REEL EDITED ITSELF"
 ```
 
-That's it. Claude installs `faster-whisper`, checks `ffmpeg`, runs the edit, and hands you `reel.mp4`.
+Claude installs the deps, runs the pipeline, and hands you `reel.mp4`. Done.
 
----
-
-## Or run it raw (no Claude Code)
+### Or run it raw (no Claude Code)
 
 ```bash
 pip install -r requirements.txt        # faster-whisper
-# ffmpeg must be installed and on PATH
+# ffmpeg must be installed and on PATH — https://ffmpeg.org/download.html
 
 python auto_reel.py myclip.mp4 \
   --hook "THIS REEL EDITED ITSELF" \
@@ -68,15 +57,55 @@ python auto_reel.py myclip.mp4 \
   --out  reel.mp4
 ```
 
-### Flags
+---
 
-| Flag         | Default                        | What                                         |
-| ------------ | ------------------------------ | -------------------------------------------- |
-| `--hook`     | `THIS REEL EDITED ITSELF`      | on-screen hook card                          |
-| `--sub`      | `FULLY AI / ZERO HUMAN EDITOR` | gold subline                                 |
-| `--model`    | `base`                         | whisper size: `tiny`/`base`/`small`/`medium` |
-| `--hook-len` | `2.5`                          | seconds the hook shows                       |
-| `--wpl`      | `3`                            | words per caption line                       |
+## How does it work?
+
+```
+raw take ──▶ faster-whisper ──▶ word-synced ──▶ hook card ──▶ scale/crop ──▶ ffmpeg ──▶ reel.mp4
+ (1 take)   (local, $0, no key)   ASS captions   (drawtext)    1080×1920    NVENC│x264
+```
+
+1. **Transcribe** — `faster-whisper` returns word-level timestamps, locally, for free.
+2. **Caption** — builds a burned-in ASS subtitle track, snapped to each word.
+3. **Hook card** — composites your hook + subline over the first 2.5s.
+4. **Reframe** — scales and center-crops any input to vertical `1080×1920`.
+5. **Export** — one `ffmpeg` pass via `h264_nvenc` (GPU), auto-falling back to `libx264` (CPU).
+
+---
+
+## Options
+
+| Flag         | Default                        | What it does                                       |
+| ------------ | ------------------------------ | -------------------------------------------------- |
+| `--hook`     | `THIS REEL EDITED ITSELF`      | on-screen hook card text                           |
+| `--sub`      | `FULLY AI / ZERO HUMAN EDITOR` | gold subline under the hook                        |
+| `--out`      | `reel.mp4`                     | output file                                        |
+| `--model`    | `base`                         | Whisper size: `tiny` / `base` / `small` / `medium` |
+| `--hook-len` | `2.5`                          | seconds the hook card shows                        |
+| `--wpl`      | `3`                            | words per caption line                             |
+
+---
+
+## FAQ
+
+**Is this a free Opus Clip / SubMagic alternative?**
+Yes. ReelForge runs entirely on your machine — no watermark, no subscription, no per-clip credits, no upload limits.
+
+**Does it need an API key or internet?**
+No. `faster-whisper` runs locally. The only requirements are Python and `ffmpeg`.
+
+**What ffmpeg command burns subtitles into a vertical video?**
+ReelForge does it for you, but under the hood it scales to `1080×1920`, center-crops, and applies a `subtitles=` filter plus a `drawtext` hook card in a single pass.
+
+**Can Claude Code edit my videos and add captions automatically?**
+Yes — that's what the bundled `/reel` command and `.claude/skills/reel/SKILL.md` do.
+
+**Does it work without a GPU?**
+Yes. It tries NVENC first and automatically falls back to CPU `libx264`.
+
+**What platforms is the output for?**
+TikTok, Instagram Reels, YouTube Shorts — any `1080×1920` 9:16 destination.
 
 ---
 
@@ -85,22 +114,32 @@ python auto_reel.py myclip.mp4 \
 - **Python 3.9+**
 - **ffmpeg** on PATH — [download](https://ffmpeg.org/download.html)
 - `faster-whisper` (installed via `requirements.txt`)
-- GPU optional (NVENC) — CPU works, just slower
+- GPU optional (NVENC); CPU works via `libx264` fallback
 
 ---
 
-## Want this wired into your brand?
+## Roadmap
 
-This is the giveaway version. **SkynetLabs** builds full AI content pipelines —
-tuned to your voice, your platforms, auto-publishing daily — so your team stops
-editing by hand.
+- [ ] Auto silence-trim (cut dead air via `silencedetect`)
+- [ ] Karaoke / word-highlight caption style
+- [ ] Brand preset file (logo, handle, colors)
+- [ ] Batch mode (folder → folder)
+- [ ] Per-platform caption packs on export
+
+Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+## Built by SkynetLabs
+
+ReelForge is the free, do-it-yourself version. **SkynetLabs** builds the full pipeline for brands — tuned to your voice and platforms, auto-publishing daily, so your team stops editing by hand.
 
 👉 **[www.skynetjoe.com](https://www.skynetjoe.com)** · DM **"SKILL"**
 
----
-
 <div align="center">
 
-© 2026 SkynetLabs · Free to use & share · `www.skynetjoe.com`
+⭐ **Star this repo** if it saved you an editing session.
+
+`MIT licensed` · © 2026 SkynetLabs · [www.skynetjoe.com](https://www.skynetjoe.com)
 
 </div>
