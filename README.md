@@ -17,6 +17,10 @@
 
 ---
 
+## Status
+
+Last reviewed: September 2026 · release v2026.09
+
 ## What is ReelForge?
 
 **ReelForge is a free, open-source CLI that turns one raw talking-head take into a finished, captioned, hook-carded vertical reel — with no manual editing.** It transcribes locally with `faster-whisper` (no API key, no cloud), burns word-synced captions, drops an on-screen hook card, crops to `1080×1920`, and exports — all from a single command or a Claude Code `/reel` skill.
