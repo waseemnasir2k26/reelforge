@@ -19,7 +19,7 @@
 
 ## Status
 
-Last reviewed: September 2026 · release v2026.09
+Last reviewed: October 2026 · release v2026.10
 
 ## What is ReelForge?
 
@@ -134,11 +134,15 @@ Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
-## Built by SkynetLabs
+## Work with SkynetLabs
+
+Built by [Waseem Nasir](https://www.skynetjoe.com/?utm_source=github&utm_medium=readme&utm_campaign=reelforge) at SkynetLabs — n8n + AI automation for small businesses.
 
 ReelForge is the free, do-it-yourself version. **SkynetLabs** builds the full pipeline for brands — tuned to your voice and platforms, auto-publishing daily, so your team stops editing by hand.
 
-👉 **[www.skynetjoe.com](https://www.skynetjoe.com)** · DM **"SKILL"**
+- Hire on Fiverr: https://www.fiverr.com/agencies/skynetjoellc
+- Hire on Upwork: https://www.upwork.com/freelancers/muhammadwaseemnasir
+- Book a free call: https://calendly.com/skynetlabs/schedule-a-free-consultation
 
 <div align="center">
 
